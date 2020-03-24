@@ -86,7 +86,7 @@
 
                 <div class="links">
                     <a href="https://www.udemy.com/course/fullstack-laravel-api-and-nuxt-development/">CLASS</a>
-                    <a href="https://github.com/RampsosPeck/Design-house.git">GITHUB</a>
+                    <a href="https://github.com/RampsosPeck/Design-house">GITHUB</a>
                 </div>
             </div>
         </div>

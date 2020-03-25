@@ -24,6 +24,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  	Route::post('logout', 'Auth\LoginController@logout');
  	Route::put('settings/profile', 'User\SettingsController@updateProfile');
  	Route::put('settings/password', 'User\SettingsController@updatePassword');
+
+ 	// Upload Designs
+ 	Route::post('designs', 'Designs\UploadController@upload');
+
  });
 
  //Route group for guests only

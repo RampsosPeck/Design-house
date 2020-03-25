@@ -53,6 +53,14 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+         ],
+
+        //Aqui guardaremos las imagenes temporalmenete
+        'tmp' => [
+            'driver' => 'local',
+            'root' => storage_path(),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public'
         ],
 
         's3' => [

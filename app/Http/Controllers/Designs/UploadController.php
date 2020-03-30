@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Designs;
 use App\Http\Controllers\Controller;
 use App\Jobs\UploadImage;
 use Illuminate\Http\Request;
+use Illuminate\Http\storeAs;
 
 class UploadController extends Controller
 {
@@ -34,6 +35,8 @@ class UploadController extends Controller
 
 		//Despachar un trabajo "job" para manejar la manipulación de la imagen
 		$this->dispatch(new UploadImage($design));
+
+		//UploadImage::dispatch($design);
 
 		return response()->json($design, 200);
 

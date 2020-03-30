@@ -36,22 +36,18 @@ class UploadImage implements ShouldQueue
     {
         $disk = $this->design->disk;
         $filename = $this->design->image;
-        $original_file = storage_path().'/uploads/original'.$filename;
+        $original_file = storage_path().'/uploads/original/'.$filename;
 
         try {
             //Creare la imagen grande y guárdela en el disco tmp
-            Image::make($original_file)
-                ->fit(800, 600, function($constraint){
+            Image::make($original_file)->fit(800, 600, function($constraint){
                     $constraint->aspectRatio();
-                })
-                ->save($large = storage_path('uploads/large/'.$filename));
+            })->save($large = storage_path('uploads/large/'.$filename));
 
             //Create the thumbnail image
-            Image::make($original_file)
-                ->fit(250, 200, function($constraint){
+            Image::make($original_file)->fit(250, 200, function($constraint){
                     $constraint->aspectRatio();
-                })
-                ->save($thumbnail = storage_path('uploads/thumbnail/'.$filename));
+            })->save($thumbnail = storage_path('uploads/thumbnail/'.$filename));
 
             //Storage images to permanent disk
             //original image
@@ -79,7 +75,6 @@ class UploadImage implements ShouldQueue
         }catch(\Exception $e){
             \Log::error($e->getMessage());
         }
-
 
     }
 }

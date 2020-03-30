@@ -19,6 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  });*/
  Route::get('me', 'User\MeController@getMe');
 
+
+// Obtener Designs
+Route::get('designs', 'Designs\DesignController@index');
+Route::get('designs/{id}', 'Designs\DesignController@findDesign');
+
+// Obtener Usuarios
+Route::get('users', 'User\UserController@index');
+
  //Route group for authenticated users only
  Route::group(['middleware' => ['auth:api']], function(){
  	Route::post('logout', 'Auth\LoginController@logout');

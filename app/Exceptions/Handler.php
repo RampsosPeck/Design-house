@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Throwable;
+use App\Exceptions\ModelNotDefined;
+
 
 class Handler extends ExceptionHandler
 {
@@ -69,6 +71,14 @@ class Handler extends ExceptionHandler
                     "message" => "El recurso no se encontró en la base de datos."
                 ]], 404);
         }
+
+        if($exception instanceof ModelNotDefinied && $request->expectsJson())
+        {
+                return response()->json(["errors" => [
+                    "message" => "El modelo no esta definido."
+                ]], 500);
+        }
+
         return parent::render($request, $exception);
     }
 }

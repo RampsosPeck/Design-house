@@ -1,0 +1,638 @@
+{
+	"info": {
+		"_postman_id": "a8a03c9e-30e4-4c0b-9d11-2d25ea241253",
+		"name": "designhouse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"Denys\",\n\t\"name\": \"Denys Peralta\",\n\t\"email\": \"denys@gmail.com\",\n\t\"password\": \"password\",\n\t\"password_confirmation\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"email\": \"denys@gmail.com\" \n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/password/email",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"password",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"token\": \"8d8b33b710d32631a38a860e7a8e9e5b7dada5ba68d69506f5349f666ecac37a\",\n\t\"email\": \"denys@gmail.com\",\n\t\"password\": \"password\",\n\t\"password_confirmation\": \"password\"\n}\n\n "
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/password/reset",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verification Resend",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"email\": \"denys@gmail.com\" \n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/verification/resend",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"verification",
+								"resend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verification Verify",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"email\": \"denys@gmail.com\" \n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/verification/verify/1?expires=1585374879&signature=18255cf1b22fb18de48825a74c0db8dce7f3777fb5ad4af733e4497a599cb244",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"verification",
+								"verify",
+								"1"
+							],
+							"query": [
+								{
+									"key": "expires",
+									"value": "1585374879"
+								},
+								{
+									"key": "signature",
+									"value": "18255cf1b22fb18de48825a74c0db8dce7f3777fb5ad4af733e4497a599cb244"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e470fda8-41d4-4f58-9d92-488d942840c4",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"denys@gmail.com\",\n\t\"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e470fda8-41d4-4f58-9d92-488d942840c4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/me ",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"me "
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2887080b-e3c0-41fd-824b-3c2ed6876f89",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7eb30d49-5228-4e32-ad3c-97138073ae93",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d97a549-6e0e-4938-afe2-ecee41ebc2fe",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User Settings",
+			"item": [
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tagline\": \"Senior UX Designer\",\n\t\"about\": \"I am a Senior UX Designer with over 20 years of experience\",\n\t\"name\": \"Jorge Denys\",\n\t\"formatted_address\": \"122 Wllington ON Canada\",\n\t\"location\": {\n\t\t\"latitude\": 45.424,\n\t\t\"longitude\": -75.699\n\t},\n\t\"available_to_hire\": true\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/settings/profile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"settings",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"current_password\": \"password\",\n\t\"password\": \"password1\",\n\t\"password_confirmation\": \"password1\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/settings/password",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"settings",
+								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "317cf20a-9136-493a-bdab-6a08b4640add",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffbab68a-e5ac-46a3-a082-938fac846032",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Designs",
+			"item": [
+				{
+					"name": "Upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "enctype",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/jope/Imágenes/logo10.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/designs",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"designs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Design",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Tdddddddddd\",\n\t\"description\": \"This is and description test example\",\n\t\"is_live\": true,\n\t\"tags\": [\"tigo\", \"viva\", \"entel\"]\n\t\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/designs/40",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"designs",
+								"40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Design",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/designs/21",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"designs",
+								"21"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "test",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}",
+					"host": [
+						"{{BASE_URL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

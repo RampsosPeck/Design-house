@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Repositories\Contracts\IUser;
 use App\Rules\CheckSamePassword;
 use App\Rules\MatchOldPassword;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
@@ -13,10 +14,15 @@ use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
 {
+    protected $users;
+    public function __construct(IUser $users)
+    {
+        $this->users = $users;
+    }
     //
     public function updateProfile(Request $request)
     {
-    	$user = Auth::user();
+    	$user = auth()->user();
 
     	$this->validate($request, [
     		'tagline' => ['required'],
@@ -27,7 +33,7 @@ class SettingsController extends Controller
     		'location.longitude' => ['required','numeric','min:-180','max:180']
     	]);
     	$location = new Point($request->location['latitude'], $request->location['longitude']);
-    	$user->update([
+    	$user = $this->users->update(auth()->id(), [
     		'name' => $request->name,
     		'formatted_address' => $request->formatted_address,
     		'location' => $location,

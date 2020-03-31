@@ -38,6 +38,14 @@ Route::get('users', 'User\UserController@index');
  	Route::put('designs/{id}', 'Designs\DesignController@update');
  	Route::delete('designs/{id}', 'Designs\DesignController@destroy');
 
+ 	//Likes and Unlikes
+ 	Route::post('designs/{id}/like', 'Designs\DesignController@like');
+ 	Route::get('designs/{id}/liked', 'Designs\DesignController@checkIfUserHasLiked');
+
+ 	// Comments
+ 	Route::post('designs/{id}/comments', 'Designs\CommentController@store');
+ 	Route::put('comments/{id}', 'Designs\CommentController@update');
+ 	Route::delete('comments/{id}', 'Designs\CommentController@destroy');
  });
 
  //Route group for guests only

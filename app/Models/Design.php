@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Likeable;
 use App\Models\User;
+use Cviebrock\EloquentTaggable\Taggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Cviebrock\EloquentTaggable\Taggable;
 
 class Design extends Model
 {
-    use Taggable;
+    use Taggable, Likeable;
 
     protected $fillable = [
     	'user_id',
@@ -26,6 +27,11 @@ class Design extends Model
     public function user()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->orderBy('created_at','asc');
     }
 
     public function getImagesAttribute()

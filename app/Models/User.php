@@ -74,7 +74,28 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
 
+    //Equipos a los que pertenece el usuario
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class)->withTimestamps();
+    }
+    public function ownedTeams()
+    {
+        return $this->teams()->where('owner_id', $this->id);
+    }
+    public function isOwnerOfTeam($team)
+    {
+        return (bool)$this->teams()
+                        ->where('id', $team->id)
+                        ->where('owner_id', $this->id)
+                        ->count();
+    }
 
+    // Relaciones para validación
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class, '')
+    }
 
 
 

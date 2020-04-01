@@ -4,16 +4,22 @@ namespace App\Http\Controllers\Teams;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TeamResource;
+use App\Repositories\Contracts\IInvitation;
 use App\Repositories\Contracts\ITeam;
+use App\Repositories\Contracts\IUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class TeamsController extends Controller
 {
     protected $teams;
-    public function __construct(ITeam $teams)
+    protected $users;
+    protected $invitations;
+    public function __construct(ITeam $teams, IUser $users, IInvitation $invitations)
     {
-    	$this->teams = $teams;
+        $this->teams = $teams;
+    	$this->users = $users;
+        $this->invitations = $invitations;
     }
 
     public function index(Request $request)
@@ -67,11 +73,37 @@ class TeamsController extends Controller
 
     public function findBySlug($slug)
     {
-
+        $team = $this->teams->findWhereFirst('slug', $slug);
+        return new TeamResource($team);
     }
 
     public function destroy($id)
     {
+        $team = $this->teams->find($id);
+        $this->authorize('delete', $team);
+
+        $team->delete();
+        return response()->json(['message'=>'Deleted'], 200);
+    }
+
+    public function removeFromTeam($teamId, $userId)
+    {
+        // get the team
+        $team = $this->teams->find($teamId);
+        $user = $this->users->find($userId);
+
+        // Comprobar que el usuario no es el propietario
+        if($user->isOwnerOfTeam($team)){
+            return response()->json(['message'=> 'You are the team owner'], 401);
+        }
+
+        // Compruebe que la persona que envía la solicitud es el propietario del equipo o la persona que desea abandonar el equipo.
+        if(auth()->user()->isOwnerOfTeam($team) && auth()->id() !== $user->id){
+            return response()->json(['message'=> 'You cannot do this'], 401);
+        }
+
+        $this->invitations->removeUserFromTeam($team, $userId);
+        return response()->json(['message'=> 'Success'], 200);
 
     }
 

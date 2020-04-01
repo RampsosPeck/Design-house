@@ -57,6 +57,13 @@ Route::get('teams/slug/{slug}', 'Teams\TeamsController@findBySlug');
  	Route::get('users/teams', 'Teams\TeamsController@fetchUserTeams');
  	Route::put('teams/{id}', 'Teams\TeamsController@update');
  	Route::delete('teams/{id}', 'Teams\TeamsController@destroy');
+ 	Route::delete('teams/{team_id}/users/{user_id}', 'Teams\TeamsController@removeFromTeam');
+
+ 	// Invitation
+ 	Route::post('invitations/{teamId}', 'Teams\InvitationsController@invite');
+ 	Route::post('invitations/{id}/resend', 'Teams\InvitationsController@resend');
+ 	Route::post('invitations/{id}/respond', 'Teams\InvitationsController@respond');
+ 	Route::delete('invitations/{id}', 'Teams\InvitationsController@destroy');
 
  });
 

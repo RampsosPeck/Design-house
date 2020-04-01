@@ -15,7 +15,21 @@ class CreateInvitationsTable extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('team_id')->unsigned();
+            $table->bigInteger('sender_id')->unsigned();
+            $table->string('recipient_email')->index();
+            $table->string('token');
             $table->timestamps();
+
+            $table->foreign('team_id')
+                ->references('id')
+                ->on('teams')
+                ->onDelete('cascade');
+
+            $table->foreign('sender_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

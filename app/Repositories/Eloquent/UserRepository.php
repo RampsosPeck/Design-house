@@ -48,7 +48,11 @@ class UserRepository extends BaseRepository implements IUser
 		}
 
 		// Order the results
-		if($request->orderByLatest){
+		if($request->orderBy == 'closest'){
+			$point = new Point($lat, $lng);
+			$query->orderByDistanceSphere('location', $point, 'asc');
+
+		} else if($request->orderBy == 'latest'){
 			$query->latest();
 		}else{
 			$query->oldest();

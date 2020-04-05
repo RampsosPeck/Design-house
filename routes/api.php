@@ -17,17 +17,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  Route::get('/', function(){
  	return response()->json(['message'=>'Hola mundo!'],200);
  });*/
- Route::get('me', 'User\MeController@getMe');
+Route::get('me', 'User\MeController@getMe');
 
 
 // Obtener Designs
 Route::get('designs', 'Designs\DesignController@index');
 Route::get('designs/{id}', 'Designs\DesignController@findDesign');
+Route::get('designs/slug/{slug}', 'Designs\DesignController@findBySlug');
 
 // Obtener Usuarios
 Route::get('users', 'User\UserController@index');
+Route::get('user/{username}', 'User\UserController@findByUsername');
+Route::get('users/{id}/designs', 'Designs\DesignController@getForUser');
 
 Route::get('teams/slug/{slug}', 'Teams\TeamsController@findBySlug');
+Route::get('teams/{id}/designs', 'Designs\DesignController@getForTeam');
 
 // Search Designs
 Route::get('search/designs', 'Designs\DesignController@search');

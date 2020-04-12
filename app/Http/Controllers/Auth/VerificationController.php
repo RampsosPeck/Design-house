@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\URL;
 class VerificationController extends Controller
 {
 
+    protected $users;
 
     public function __construct(IUser $users)
     {
@@ -28,20 +29,20 @@ class VerificationController extends Controller
         // Compruebe si la url es una url firmada válida
         if(! URL::hasValidSignature($request)){
             return response()->json(["errors"=> [
-                "message" => "Invalid verification link"
+                "message" => "Invalid verification link or signature"
             ]], 422);
         }
         //Compruebe si el usuario ya ha verificado la cuenta
         if($user->hasVerifiedEmail()){
             return response()->json(["errors"=> [
-                "message" => "Email adderss  already verified"
+                "message" => "Dirección de correo electrónico ya verificado."
             ]], 422);
         }
 
         $user->markEmailAsVerified();
         event(new Verified($user));
 
-        return response()->json(['message'=>'Email successfully verified'], 200);
+        return response()->json([ 'message' => 'Email successfully verified'], 200);
     }
 
     public function resend(Request $request)
@@ -61,7 +62,7 @@ class VerificationController extends Controller
 
         if($user->hasVerifiedEmail()){
             return response()->json(["errors"=> [
-                "message" => "Email adderss  already verified"
+                "message" => "Dirección de correo electrónico ya verificado."
             ]], 422);
         }
 

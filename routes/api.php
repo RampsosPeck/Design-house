@@ -95,6 +95,6 @@ Route::get('search/designers', 'User\UserController@search');
 
  });
 
-//Auth::routes();
+
 
 

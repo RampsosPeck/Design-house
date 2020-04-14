@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers\Designs;
 
-use App\Http\Controllers\Controller;
 use App\Jobs\UploadImage;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\Contracts\IDesign;
 use Illuminate\Http\storeAs;
 
 class UploadController extends Controller
 {
+    protected $designs;
+
+    public function __construct(IDesign $designs)
+    {
+        $this->designs = $designs;
+    }
     //
     public function upload(Request $request)
     {
@@ -32,6 +39,11 @@ class UploadController extends Controller
 			'image' => $filename,
 			'disk' => config('site.upload_disk')
 		]);
+        /*$design = $this->designs()->create([
+            'user_id' => auth()->id(),
+            'image' => $filename,
+            'disk' => config('site.upload_disk')
+        ]);*/
 
 		//Despachar un trabajo "job" para manejar la manipulación de la imagen
 		$this->dispatch(new UploadImage($design));

@@ -52,7 +52,7 @@ class DesignController extends Controller
     		'title' => ['required', 'unique:designs,title,'.$id],
     		'description' => ['required', 'string', 'min:20', 'max:140'],
     		'tags' => ['required'],
-    		'team' => ['required_id:assign_to_team,true']
+    		'team' => ['required_if:assign_to_team,true']
     	]);
 
 	    $design = $this->designs->update($id, [
@@ -131,7 +131,14 @@ class DesignController extends Controller
 		return DesignResource::collection($designs);
 	}
 
+	public function userOwnsDesign($id)
+	{
+		$design = $this->designs->withCriteria([
+			new ForUser(auth()->id())
+		])->findWhereFirst('id', $id);
 
+		return new DesignResource($design);
+	}
 
 }
 

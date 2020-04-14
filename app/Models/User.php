@@ -15,6 +15,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use Notifiable, SpatialTrait;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +51,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     ];
     public function getPhotoUrlAttribute()
     {
-        return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->email)).'jpg?s=200&d=mm';
+        return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email))).'jpg?s=200&d=mm';
     }
 
     /**

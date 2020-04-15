@@ -8,12 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class DesignResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
+
     public function toArray($request)
     {
         //return parent::toArray($request);
@@ -39,9 +34,11 @@ class DesignResource extends JsonResource
                 'updated_at' => $this->updated_at
             ],
             'team' => $this->team ?[
+                'id' => $this->team->id,
                 'name' => $this->team->name,
                 'slug' => $this->team->slug
-            ] : null,
+            ]: null,
+            'comments_count' => $this->comments()->count(),
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'user' => new UserResource($this->whenLoaded('user'))
         ];

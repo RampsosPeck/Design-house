@@ -31,7 +31,7 @@ class DesignController extends Controller
 		$designs = $this->designs->withCriteria([
 				new LatestFirst(),
 				new IsLive(),
-				new ForUser(1),
+				new ForUser(2),
 				new EagerLoad(['user','comments'])
 			])->all();
 		return DesignResource::collection($designs);
